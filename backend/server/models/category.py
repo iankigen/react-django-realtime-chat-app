@@ -7,3 +7,6 @@ class Category(BaseModel):
     str_field = 'name'
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True, null=True)
+
+    class Meta:
+        verbose_name_plural = 'Categories'
