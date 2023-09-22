@@ -1,8 +1,7 @@
-from rest_framework.generics import get_object_or_404
+from django.db.models import Count
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
-from rest_framework.response import Response
-from rest_framework.viewsets import ViewSet
-
+from rest_framework.viewsets import ModelViewSet
 from server.models import (
     Category,
     Server,
@@ -12,30 +11,16 @@ from server.serializers import (
 )
 
 
-class ServerListViewSet(ViewSet):
-    queryset = Server.objects.all()
-
-    def list(self, request):
-        category = request.query_params.get('category')
-        user = request.query_params.get('user')
-        if category:
-            self.queryset = self.queryset.filter(category_id=category)
-        if user:
-            self.queryset = self.queryset.filter(owner_id=user)
-
-        data = ServerSerializer(self.queryset, many=True).data
-        return Response(data)
-
-    def retrieve(self, request, pk):
-        server = self.get_object(pk)
-        data = ServerSerializer(server, many=False).data
-        return Response(data)
-
-    def get_object(self, pk):
-        return self.queryset.get(pk=pk)
+class ServerListViewSet(ModelViewSet):
+    serializer_class = ServerSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['category', 'owner']
 
     def get_permissions(self):
         permission_classes = [IsAuthenticated]
         if self.action == 'create':
             permission_classes = [IsAdminUser]
         return [permission() for permission in permission_classes]
+
+    def get_queryset(self):
+        return Server.objects.all().annotate(members_count=Count('members'))
