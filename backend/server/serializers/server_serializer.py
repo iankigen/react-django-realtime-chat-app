@@ -1,19 +1,16 @@
-from rest_framework.serializers import ModelSerializer
+from rest_framework.fields import IntegerField
+from rest_framework.serializers import ModelSerializer, SerializerMethodField
 
 from server.models import Server
-from .channel_serializer import ChannelSerializer
-from .user_serializer import UserSerializer
 
 
 class ServerSerializer(ModelSerializer):
-    channels = ChannelSerializer(many=True)
-    owner = UserSerializer()
-    members = UserSerializer(many=True)
+    members_count = IntegerField(read_only=True)
 
     class Meta:
         model = Server
         fields = [
             'id', 'name', 'owner', 'category', 'description',
-            'members', 'channels', 'created_at', 'updated_at'
+            'channels', 'created_at', 'updated_at', 'members_count'
         ]
-        read_only_fields = ['id', ]
+        read_only_fields = ['id']
