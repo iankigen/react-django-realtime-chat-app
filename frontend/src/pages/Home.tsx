@@ -4,6 +4,7 @@ import {PrimaryAppBar} from "./templates/PrimaryAppBar.tsx";
 import PrimaryDrawer from "./templates/PrimaryDrawer.tsx";
 import SecondaryDrawer from "./templates/SecondaryDrawer.tsx";
 import Main from "./templates/Main.tsx";
+import PopularChannels from "./templates/PopularChannels.tsx";
 
 const Home: React.FC = () => {
     return (
@@ -13,6 +14,7 @@ const Home: React.FC = () => {
             <CssBaseline/>
             <PrimaryAppBar/>
             <PrimaryDrawer>
+                <PopularChannels/>
             </PrimaryDrawer>
             <SecondaryDrawer/>
             <Main/>

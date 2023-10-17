@@ -10,9 +10,15 @@ const useAxiosInterceptor = (): AxiosInstance => {
     jwtAxios.interceptors.response.use((response) => {
         return response
     }, async (error) => {
-        const originalRequest = error.config
+        // const originalRequest = error.config
         if (error.response.status === 401) {
             navigate('/login')
+        }
+        if (error.response.status === 403) {
+            navigate('/forbidden')
+        }
+        if (error.response.status === 404) {
+            navigate('/not-found')
         }
         return Promise.reject(error)
     })

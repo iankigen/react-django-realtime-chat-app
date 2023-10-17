@@ -1,10 +1,20 @@
 import React, {useEffect, useState} from "react";
-import {Box, styled, Typography, useMediaQuery, useTheme} from "@mui/material";
+import {Box, styled, useMediaQuery, useTheme} from "@mui/material";
 import MuiDrawer from "@mui/material/Drawer"
 import DrawerToggle from "../../components/PrimaryDrawer/DrawerToggle.tsx";
 
+interface PrimaryDrawerProps {
+    children: React.ReactNode,
+}
 
-const PrimaryDrawer: React.FC = () => {
+interface ChildProps {
+    open: boolean,
+}
+
+type ChildElement = React.ReactElement<ChildProps>
+
+
+const PrimaryDrawer: React.FC<PrimaryDrawerProps> = ({children}) => {
     const [open, setOpen] = useState<boolean>(true)
     const theme = useTheme()
     const isSmallScreen: boolean = useMediaQuery(theme.breakpoints.up("sm"))
@@ -55,12 +65,12 @@ const PrimaryDrawer: React.FC = () => {
                 <Box sx={{position: "absolute", top: 0, right: 0, p: 0, width: open ? "auto" : "100%"}}>
                     <DrawerToggle open={open} handleOpenDrawer={handleOpenDrawer}
                                   handleCloseDrawer={handleCloseDrawer}/>
-                    {[...Array(10)].map((_, index) => (
-                        <Typography key={index} paragraph>
-                            {index}
-                        </Typography>
-                    ))}
                 </Box>
+                {React.Children.map(children, (child) => {
+                    return React.isValidElement(child) ?
+                        React.cloneElement(child as ChildElement, {open}) :
+                        child
+                })}
             </Box>
         </Drawer>
     )

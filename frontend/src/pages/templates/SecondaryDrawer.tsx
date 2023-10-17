@@ -2,24 +2,11 @@ import React from 'react'
 import {Box, Typography, useTheme} from "@mui/material";
 import {BASE_URL} from "../../config.ts";
 import useAxiosInterceptor from "../../helpers/jwtInterceptor.ts";
+import useCrud from "../../hooks/useCrud.ts";
 
 const SecondaryDrawer: React.FC = () => {
     const theme = useTheme()
-    const jwtAxios = useAxiosInterceptor()
-
-    jwtAxios({
-        method: 'get',
-        url: `${BASE_URL}/api/server/select/`
-    })
-        .then(({status, data}) => {
-            // handle success
-            console.log(status, data);
-        })
-        .catch((error) => {
-            // handle error
-            console.log(error);
-        })
-
+    useCrud([], '/api/server/select/')
     return (
         <Box sx={{
             minWidth: theme.secondaryDrawer.width,
