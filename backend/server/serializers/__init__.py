@@ -1,3 +1,4 @@
 from .server_serializer import ServerSerializer
 from .user_serializer import UserSerializer
 from .channel_serializer import ChannelSerializer
+from .category_serializer import CategorySerializer

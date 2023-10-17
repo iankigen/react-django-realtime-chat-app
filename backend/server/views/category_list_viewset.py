@@ -1,20 +1,17 @@
-from django.db.models import Count
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
 from rest_framework.viewsets import ModelViewSet
 from server.models import (
     Category,
-    Server,
 )
 from server.serializers import (
-    ServerSerializer,
+    CategorySerializer,
 )
 
 
-class ServerListViewSet(ModelViewSet):
-    serializer_class = ServerSerializer
+class CategoryListViewSet(ModelViewSet):
+    serializer_class = CategorySerializer
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['category', 'owner']
     permission_classes = [AllowAny]
 
     # def get_permissions(self):
@@ -24,4 +21,4 @@ class ServerListViewSet(ModelViewSet):
     #     return [permission() for permission in permission_classes]
 
     def get_queryset(self):
-        return Server.objects.all().annotate(members_count=Count('members'))
+        return Category.objects.all()
