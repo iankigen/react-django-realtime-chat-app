@@ -1,7 +1,11 @@
 import React from 'react'
 import {Box, useTheme} from "@mui/material";
 
-const Main: React.FC = () => {
+interface MainProps {
+    children: React.ReactNode,
+}
+
+const Main: React.FC<MainProps> = ({children}) => {
     const theme = useTheme()
     return (
         <Box sx={{
@@ -10,7 +14,7 @@ const Main: React.FC = () => {
             height: `calc(100vh-${theme.primaryAppBar.height}px)`,
             overflow: "hidden"
         }}>
-            Main:React.FC
+            {children}
         </Box>
     )
 }

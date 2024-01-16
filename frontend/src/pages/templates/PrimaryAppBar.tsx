@@ -4,6 +4,7 @@ import {
     Toolbar, Typography, useMediaQuery, useTheme,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu"
+import ExploreCategories from "../../components/SecondaryDrawer/ExploreCategories.tsx";
 
 
 export const PrimaryAppBar: React.FC = () => {
@@ -20,6 +21,16 @@ export const PrimaryAppBar: React.FC = () => {
             setSideMenu(false)
         }
     }, [isSmallScreen]);
+
+    const list = () => (
+        <Box
+            sx={{paddingTop: theme.primaryAppBar.height, minWidth: 200}}
+            role='presentation'
+            onClick={toggleDrawer(false)}
+            onKeyDown={toggleDrawer(false)}>
+            <ExploreCategories/>
+        </Box>
+    )
 
     return (
         <AppBar sx={{
@@ -51,11 +62,13 @@ export const PrimaryAppBar: React.FC = () => {
                 </Box>
 
                 <Drawer anchor="left" open={sideMenu} onClose={() => toggleDrawer(false)}>
-                    {[...Array(10)].map((_, index) => (
-                        <Typography key={index} paragraph>
-                            {index}
-                        </Typography>
-                    ))}
+                    <Box
+                        sx={{paddingTop: `${theme.primaryAppBar.height}px`, minWidth: 200}}
+                        role='presentation'
+                        onClick={() => toggleDrawer(false)}
+                        onKeyDown={() => toggleDrawer(false)}>
+                        <ExploreCategories/>
+                    </Box>
                 </Drawer>
                 <Link href='/' underline="none" color="inherit">
                     <Typography

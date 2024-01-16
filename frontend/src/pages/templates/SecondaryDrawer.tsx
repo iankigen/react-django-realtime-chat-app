@@ -1,12 +1,12 @@
 import React from 'react'
-import {Box, Typography, useTheme} from "@mui/material";
-import {BASE_URL} from "../../config.ts";
-import useAxiosInterceptor from "../../helpers/jwtInterceptor.ts";
-import useCrud from "../../hooks/useCrud.ts";
+import {Box, useTheme} from "@mui/material";
 
-const SecondaryDrawer: React.FC = () => {
+interface SecondaryDrawerProps {
+    children: React.ReactNode
+}
+
+const SecondaryDrawer: React.FC<SecondaryDrawerProps> = ({children}) => {
     const theme = useTheme()
-    useCrud([], '/api/server/select/')
     return (
         <Box sx={{
             minWidth: theme.secondaryDrawer.width,
@@ -16,11 +16,7 @@ const SecondaryDrawer: React.FC = () => {
             display: {xs: "none", sm: "block"},
             overflow: "auto"
         }}>
-            {[...Array(10)].map((_, index) => (
-                <Typography key={index} paragraph>
-                    {index}
-                </Typography>
-            ))}
+            {children}
         </Box>
     )
 }
