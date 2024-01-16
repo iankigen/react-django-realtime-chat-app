@@ -6,6 +6,7 @@ from .server import Server
 
 User = get_user_model()
 
+
 class Channel(BaseModel):
     str_field = 'name'
     name = models.CharField(max_length=100)
