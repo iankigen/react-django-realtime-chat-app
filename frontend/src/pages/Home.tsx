@@ -5,6 +5,8 @@ import PrimaryDrawer from "./templates/PrimaryDrawer.tsx";
 import SecondaryDrawer from "./templates/SecondaryDrawer.tsx";
 import Main from "./templates/Main.tsx";
 import PopularChannels from "./templates/PopularChannels.tsx";
+import ExploreCategories from "../components/SecondaryDrawer/ExploreCategories.tsx";
+import ExploreServers from "../components/Main/ExploreServers.tsx";
 
 const Home: React.FC = () => {
     return (
@@ -14,10 +16,14 @@ const Home: React.FC = () => {
             <CssBaseline/>
             <PrimaryAppBar/>
             <PrimaryDrawer>
-                <PopularChannels/>
+                <PopularChannels open={false}/>
             </PrimaryDrawer>
-            <SecondaryDrawer/>
-            <Main/>
+            <SecondaryDrawer>
+                <ExploreCategories/>
+            </SecondaryDrawer>
+            <Main>
+                <ExploreServers/>
+            </Main>
         </Box>
     )
 }
