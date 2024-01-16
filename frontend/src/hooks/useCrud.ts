@@ -10,7 +10,7 @@ interface IuserCrud<T> {
 }
 
 
-const useCrud = <T>(initialData: T[], apiURL: string) => {
+const useCrud = <T>(initialData: T[], apiURL: string): IuserCrud<T> => {
     const jwtAxios = useAxiosInterceptor()
     const [dataCRUD, setDataCRUD] = useState<T[]>(initialData)
     const [error, setError] = useState<Error | null>(null)
@@ -24,6 +24,7 @@ const useCrud = <T>(initialData: T[], apiURL: string) => {
             .then(({status, data}) => {
                 setDataCRUD(data)
                 setError(null)
+                console.log("status", status)
             })
             .catch((error) => {
                 // handle error
