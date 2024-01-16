@@ -13,6 +13,6 @@ class ServerSerializer(ModelSerializer):
         model = Server
         fields = [
             'id', 'name', 'owner', 'category', 'description', 'channels', 'created_at', 'updated_at', 'members_count',
-            'icon'
+            'icon', 'banner'
         ]
         read_only_fields = ['id']
